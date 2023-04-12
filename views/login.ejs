@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="CSS/style.css">
     <title>Document</title>
 </head>
-
 <body>
+      
     <div class="container-fluid">
         <div class="row">
             <!-- <div class="col-md-1 sidebar d-none d-md-block bg-dark text-light">
@@ -101,7 +101,7 @@
                 </ul>
             </div>
             <div class="auth">
-                <% if (typeof myCookie !=='undefined' ) { %>
+                <% if (typeof cookie !== 'undefined') { %>
                     <div class="container hero-container">
                         <%- include('includes/modals')%>
                             <ul>
@@ -345,7 +345,20 @@
                             </div>
                         </div>
                     </div>
-                    <% } %>
+                    <% }else{ %>
+                        <%- include('includes/authModal.ejs')%>
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <div class="d-flex">
+                            <div class="authImg"width="10rem" height="10rem">
+                                <img src="/img/Void.40a74afe85f5039b8995becfc0e66c6a.svg" alt="">
+                                <div class="authButton d-flex justify-content-center">
+                                    <button class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#authModal">Signin to proceed</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <%}%>
             </div>
             <!-- </div> -->
         </div>

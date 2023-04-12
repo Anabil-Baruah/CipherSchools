@@ -1,0 +1,145 @@
+<!--Authentication modal -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content authModalCard">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPersonalInfoLabel">SignIn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container authHeader d-flex justify-content-center">
+                    <div class="col">
+                        <div class="firstHeader d-flex justify-content-center">
+                            <img src="/img/logo.jpg" alt="">
+                            <h4 class="p-1">CipherSchools</h4>
+                        </div>
+                        <br>
+                        <div class="secondHeader text-center">
+                            <h5>Hey, Welcome !</h5>
+                            <p>Please provide your email and password to signin</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container userInfoContainer">
+                    <div class="signIn">
+                        <form id="signIn">
+                            <input type="email" class="form-control" name="email" placeholder="Email">
+                            <input type="password" class="form-control" name="password" placeholder="password">
+                            <button class="btn" type="submit">Submit</button>
+                            <h6 class="text-center container">Dont have an account? <a href="#"
+                                    class="text-decoration-none" onclick="toggleAuth(this)">Get Started</a></h6>
+                        </form>
+                        <h5 class="text-center">OR</h5>
+                        <div class="container d-flex justify-content-center googleAuth">
+                            <button class="btn bg-light text-dark border p-1" id="Google-signin">
+                                <img src="/img/google-logo.png" alt="">
+                                <span> Signin with google</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="signUp" style="display: none;">
+                        <form id="signUp">
+                            <input type="text" class="form-control" name="firstName" placeholder="First name">
+                            <input type="text" class="form-control" name="lastName" placeholder="Last name">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address">
+                            <input type="number" class="form-control" name="phone" placeholder="Phone number">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <button class="btn" type="submit">Submit</button>
+                            <h6 class="text-center container">Already have an account? <a href="#"
+                                    class="text-decoration-none" onclick="toggleAuth(this)">Sign In</a></h6>
+                        </form>
+                        <h5 class="text-center">OR</h5>
+                        <div class="container d-flex justify-content-center googleAuth">
+                            <button class="btn bg-light text-dark border p-1" id="Google-signup">
+                                <img src="/img/google-logo.png" alt="">
+                                <span> SignUp with google</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAuth(self) {
+        const form = self.innerText;
+        if (form == "Get Started") {
+            document.querySelector('.signIn').style.display = "none"
+            document.querySelector('.modal-title').innerText = "Sign Up"
+            document.querySelector('.signUp').style.display = ""
+            document.querySelector('.secondHeader').innerHTML = `<h5>Creat a new Account</h5>
+                            <p>Please provide your valid informations to signup</p>`
+
+        } else {
+            document.querySelector('.signIn').style.display = ""
+            document.querySelector('.modal-title').innerText = "Sign In"
+            document.querySelector('.signUp').style.display = "none"
+            document.querySelector('.secondHeader').innerHTML = `<h5>Hey, Welcome !</h5>
+                            <p>Please provide your email and password to signin</p>`
+
+        }
+    }
+
+    const googleSignIn = document.getElementById('Google-signin');
+    googleSignIn.addEventListener('click', () => {
+        // Redirect the user to the Google OAuth2 authorization page
+        window.location.href = `${baseURL}/login/auth/google`;
+    });
+    const googleSignUp = document.getElementById('Google-signup');
+    googleSignUp.addEventListener('click', () => {
+        // Redirect the user to the Google OAuth2 authorization page
+        window.location.href = `${baseURL}/signUp/auth/google`;
+    });
+
+    const userSignIn = document.querySelector('#signIn')
+    const userSignUp = document.querySelector('#signUp')
+    userSignIn.addEventListener('submit', (event) => {
+        event.preventDefault()
+
+        var formData = new FormData(userSignIn);
+        const formValues = Object.fromEntries(formData.entries());
+        console.log(formValues)
+
+
+        $.ajax({
+            url: `${baseURL}/auth/signIn`,
+            method: 'POST',
+            data: JSON.stringify(formValues),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.status === "success")
+                    location.reload()
+                else (response.message)
+            },
+            error: function (error) {
+                alert("Sorry some error occured please try again later")
+            }
+        })
+    })
+    userSignUp.addEventListener('submit', (event) => {
+        event.preventDefault()
+
+        var formData = new FormData(userSignUp);
+        const formValues = Object.fromEntries(formData.entries());
+        console.log(formValues)
+
+
+        $.ajax({
+            url: `${baseURL}/auth/signUp`,
+            method: 'POST',
+            data: JSON.stringify(formValues),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.status === "success")
+                    location.reload()
+                else (response.message)
+            },
+            error: function (error) {
+                alert("Sorry some error occured please try again later")
+            }
+        })
+    })
+</script>

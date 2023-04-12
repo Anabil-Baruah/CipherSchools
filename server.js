@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser');
 require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -17,8 +18,9 @@ db.once('open', function () {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser());
 app.use('/', express.static(__dirname + '/public'));
-// app.use('/auth', express.static(__dirname + '/public'));
+app.use('/auth', express.static(__dirname + '/public'));
 
 
 app.use('/', require('./routers/login'))

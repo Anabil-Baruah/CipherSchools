@@ -5,6 +5,7 @@ const personalInfo = document.querySelector('#personalInfo')
 const passwordChange = document.querySelector('#passwordChange')
 
 
+
 aboutMe.addEventListener('submit', (event) => {
     event.preventDefault()
 
@@ -89,3 +90,4 @@ passwordChange.addEventListener('submit', (event)=>{
         }
     })
 })
+

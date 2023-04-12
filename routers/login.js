@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 
 router.route('/')
     .get(async (req, res) => {
-        res.render('login')
+        const jwtCookie = req.cookies.jwt;
+        res.render('login', {cookie:jwtCookie})
     })
 
 router.route('/aboutMe')
@@ -136,7 +137,7 @@ router.route('/passwordUpdate')
     })
 router.route('/editInterests')
     .post(async(req,res)=>{
-        
+
     })
 
 module.exports = router
