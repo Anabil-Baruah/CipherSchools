@@ -49,58 +49,59 @@
             </div> -->
 
             <!-- <div class="col-md-11 px-0"> -->
-                <div class="container header-container">
-                    <ul class="my-0">
+            <div class="container header-container">
+                <ul class="my-0">
 
-                        <li class="d-flex">
-                            <img src="/img/logo.jpg" alt="">
-                            <h4 class="mx-2" style="font-weight: bold;"> CipherSchools</h4>
-                        </li>
-                        <li class="d-flex ">
-                            <div class="dropdown">
-                                <h5 class="dropbtn"><i class="fa-solid fa-compass"></i> Browse <i
-                                        class="fa-solid fa-chevron-down"></i></h5>
-                                <div class="dropdown-content">
-                                    <a href="#" class="p-1 m-1">App developement</a>
-                                    <a href="#" class="p-1 m-1">Web developement</a>
-                                    <a href="#" class="p-1 m-1">Game developement</a>
-                                    <a href="#" class="p-1 m-1">Data structures</a>
-                                    <a href="#" class="p-1 m-1">Programming</a>
-                                    <a href="#" class="p-1 m-1">Machine learning</a>
-                                    <a href="#" class="p-1 m-1">Data science</a>
-                                </div>
+                    <li class="d-flex">
+                        <img src="/img/logo.jpg" alt="">
+                        <h4 class="mx-2" style="font-weight: bold;"> CipherSchools</h4>
+                    </li>
+                    <li class="d-flex ">
+                        <div class="dropdown">
+                            <h5 class="dropbtn"><i class="fa-solid fa-compass"></i> Browse <i
+                                    class="fa-solid fa-chevron-down"></i></h5>
+                            <div class="dropdown-content">
+                                <a href="#" class="p-1 m-1">App developement</a>
+                                <a href="#" class="p-1 m-1">Web developement</a>
+                                <a href="#" class="p-1 m-1">Game developement</a>
+                                <a href="#" class="p-1 m-1">Data structures</a>
+                                <a href="#" class="p-1 m-1">Programming</a>
+                                <a href="#" class="p-1 m-1">Machine learning</a>
+                                <a href="#" class="p-1 m-1">Data science</a>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
 
-                        <li class="d-none d-lg-flex align-items-center" style="margin-left:auto;">
-                            <form class="d-flex ">
-                                <div class="searchContainer d-flex">
-                                    <i class="fa-solid fa-magnifying-glass m-2"></i>
-                                    <input class="form-control no-focus-outline me-2 p-1" type="search"
-                                        placeholder="Search" aria-label="Search">
-                                </div>
-                            </form>
-                        </li>
-                        <li>
-                            <h4><i class="fa-solid fa-bell"></i></h4>
-                        </li>
-                        <li>
-                            <img src="/img/logo.jpg" alt="">
-                        </li>
-                        <li>
-                            <h4><i class="fa-solid fa-user"></i></h4>
-                        </li>
-                        <li>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                    id="flexSwitchCheckChecked" checked>
+                    <li class="d-none d-lg-flex align-items-center" style="margin-left:auto;">
+                        <form class="d-flex ">
+                            <div class="searchContainer d-flex">
+                                <i class="fa-solid fa-magnifying-glass m-2"></i>
+                                <input class="form-control no-focus-outline me-2 p-1" type="search" placeholder="Search"
+                                    aria-label="Search">
                             </div>
-                        </li>
+                        </form>
+                    </li>
+                    <li>
+                        <h4><i class="fa-solid fa-bell"></i></h4>
+                    </li>
+                    <li>
+                        <img src="/img/logo.jpg" alt="">
+                    </li>
+                    <li>
+                        <h4><i class="fa-solid fa-user"></i></h4>
+                    </li>
+                    <li>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                checked>
+                        </div>
+                    </li>
 
-                    </ul>
-                </div>
-                <div class="auth">
+                </ul>
+            </div>
+            <div class="auth">
+                <% if (typeof myCookie !=='undefined' ) { %>
                     <div class="container hero-container">
                         <%- include('includes/modals')%>
                             <ul>
@@ -331,12 +332,21 @@
                                 <button class="btn" data-bs-toggle="modal"
                                     data-bs-target="#interestsEditModal">Edit</button>
                             </div>
-                            <div class="container">
-
+                            <div class="container interests">
+                                <target class="btn p-1 m-2">App developement</target>
+                                <target class="btn p-1 m-2">Web developement</target>
+                                <target class="btn p-1 m-2">Game devoloement</target>
+                                <target class="btn p-1 m-2">Data Science</target>
+                                <target class="btn p-1 m-2">Button 2</target>
+                                <target class="btn p-1 m-2">Button 3</target>
+                                <target class="btn p-1 m-2">Button 1</target>
+                                <target class="btn p-1 m-2">Button 2</target>
+                                <target class="btn p-1 m-2">Button 3</target>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <% } %>
+            </div>
             <!-- </div> -->
         </div>
 

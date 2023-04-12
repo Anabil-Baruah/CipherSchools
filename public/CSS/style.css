@@ -7,19 +7,25 @@
 
 html {
   width: 100%;
+  height: 100;
 }
-body{
-  background-color:aliceblue
+
+body {
+  background-color: aliceblue
 }
-ul{
+
+ul {
   list-style: none;
 }
+
 :disabled {
   background-color: black;
 }
-textarea{
+
+textarea {
   border: none;
 }
+
 .header-container {
   align-items: center;
   flex-direction: row;
@@ -27,36 +33,41 @@ textarea{
   max-width: 100%;
   background-color: #fff;
 }
-.header-container ul{
+
+.header-container ul {
   display: flex;
   list-style: none;
   padding: 0;
   /* background-color: rgb(228, 228, 228); */
 }
-.header-container ul li{
+
+.header-container ul li {
   display: inline-block;
   margin-right: 10px;
   padding: 10px;
 }
-.header-container ul li img{
+
+.header-container ul li img {
   width: 2rem;
   height: 2rem;
 }
 
-.header-container ul li form input{
+.header-container ul li form input {
   border: none;
 }
-.header-container ul li form .searchContainer{
-  padding: 0; margin: 0;
+
+.header-container ul li form .searchContainer {
+  padding: 0;
+  margin: 0;
   border: 2px solid black;
   border-radius: 2rem;
 }
 
-.header-container ul li i:hover{
+.header-container ul li i:hover {
   cursor: pointer;
 }
 
-.sidebar{
+.sidebar {
   height: 100;
   width: 5.5rem;
 }
@@ -79,7 +90,7 @@ textarea{
   z-index: 1;
   background-color: #fff;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 0;
 }
 
@@ -89,20 +100,23 @@ textarea{
   text-decoration: none;
   display: block;
 }
-.dropdown-content a:hover{
+
+.dropdown-content a:hover {
   background-color: rgb(208, 208, 208);
-  
+
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
   background-color: aliceblue;
 }
 
 
-.no-focus-outline{
+.no-focus-outline {
   background-color: transparent;
   border: none;
 }
+
 .no-focus-outline:focus {
   box-shadow: none;
   background-color: transparent;
@@ -110,63 +124,91 @@ textarea{
 
 /* hero-container */
 
-.hero-container{
+.hero-container {
   padding: 1rem;
   width: 100%;
   max-width: 100%;
   background-color: #fff;
 }
-.hero-container ul img{
+
+.hero-container ul img {
   width: 5rem;
   height: 5rem;
   z-index: 1;
 }
 
-.hero-container ul{
+.hero-container ul {
   display: flex;
   list-style: none;
   padding: 0;
 }
-.hero-container ul li p{
+
+.hero-container ul li p {
   font-weight: lighter;
 }
-.editBtn{
+
+.editBtn {
   z-index: 2;
   margin: 80px 30px 0px -52px;
   border-radius: 50%;
   padding: 6px;
 }
 
+.profileImg img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.profileUpdateContainer {
+  padding: 2rem;
+}
+
+.profileUpdateContainer input {
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: aliceblue;
+  margin-top: 10px;
+}
+
+.profileUpdateContainer label {
+  font-weight: lighter;
+}
+
 /* //hero-container */
 
 /* main-container */
-.main-container{
-   width: 100vw;
+.main-container {
+  width: 100vw;
 }
+
 /* aboutMe */
-.main-container .aboutMe textarea{
+.main-container .aboutMe textarea {
   width: 80vw;
   height: 20vh;
   font-weight: lighter;
   border-radius: 1rem;
   padding: 1rem;
 }
-.main-container .aboutMe button, 
-.main-container .onTheWeb button ,
+
+.main-container .aboutMe button,
+.main-container .onTheWeb button,
 .personalInformation button,
 .passwordHeader button,
-.intrestsdHeader button{
+.intrestsdHeader button {
   width: 5rem;
   padding: 5px;
-  background-color: #f3912e;;
+  background-color: #f3912e;
+  ;
   margin-left: auto;
   font-weight: bold;
   color: #fff;
 }
+
 .aboutMeHeader,
 .passwordHeader,
 .personalInfoHeader,
-.intrestsdHeader{
+.intrestsdHeader {
   display: flex;
   flex-direction: row;
 }
@@ -190,14 +232,17 @@ textarea{
 
 /* onTHeWeb */
 
-.onTheWeb input , .persoanlInfo input{
+.onTheWeb input,
+.persoanlInfo input {
   width: 100%;
   padding: 1rem;
   margin: 0 0 0 0;
   border: none;
   font-size: 1.5rem;
 }
-.onTheWeb .addInfo, .personalInfo{
+
+.onTheWeb .addInfo,
+.personalInfo {
   /* border: 2px solid black; */
   background-color: #fff;
   padding: 2px;
@@ -209,12 +254,12 @@ textarea{
 
 /* personal info */
 
-.personalInfo select{
+.personalInfo select {
   border: none;
   padding: 1rem;
 }
 
-.personalInfo select option{
+.personalInfo select option {
   /* background-color: #fdc389; */
   padding: 2rem;
   font-size: large;
@@ -225,28 +270,56 @@ textarea{
 /* //personal info */
 
 /* password security */
-.passChangeContainer{
+.passChangeContainer {
   padding: 2rem;
 }
 
-.passChangeContainer input{
-  border: none; 
+.passChangeContainer input {
+  border: none;
   border-radius: 1rem;
   padding: 0.5rem;
   background-color: aliceblue;
   margin-top: 10px;
 }
-.passChangeContainer label{
+
+.passChangeContainer label {
   font-weight: lighter;
 }
 
 
 /* // password security */
 
+/* Interests */
+
+.interestsOptions button {
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  /* width: 12rem; */
+}
+
+.interestsOptions .btn span {
+  white-space: nowrap;
+}
+.interests target{
+  background-color: rgba(243,145,46,.1);
+  color: #f3912e;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+.interests .btn:hover{
+  cursor: default;
+}
+/* // Interests */
+
 /* //main-container */
 
-  @media (min-width: 992px) {
-    .search {
-      display: flex;
-    }
+@media (min-width: 992px) {
+  .search {
+    display: flex;
   }
+
+
+}

@@ -134,6 +134,9 @@ router.route('/passwordUpdate')
             }
         }
     })
-
+router.route('/editInterests')
+    .post(async(req,res)=>{
+        
+    })
 
 module.exports = router
