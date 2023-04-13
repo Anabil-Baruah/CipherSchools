@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const register = require("./models/users");
-const baseURL = "http://localhost:3000"
-// const baseURL = "https://chat-sphere-381410.el.r.appspot.com"
+// const baseURL = "http://localhost:3000"
+const baseURL = "https://cipherschools-383611.as.r.appspot.com"
 require('dotenv').config()
 
 const auth = async (req, res, next) => {
@@ -19,8 +19,7 @@ const auth = async (req, res, next) => {
         req.accessToken = token
         next();
     } catch (error) {
-        console.log("Shit")
-        res.redirect(`${baseURL}/login`)
+        res.redirect(`${baseURL}`)
     }
 }
 

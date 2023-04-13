@@ -86,12 +86,12 @@
     const googleSignIn = document.getElementById('Google-signin');
     googleSignIn.addEventListener('click', () => {
         // Redirect the user to the Google OAuth2 authorization page
-        window.location.href = `${baseURL}/login/auth/google`;
+        window.location.href = `${baseURL}/auth/signIn/google`;
     });
     const googleSignUp = document.getElementById('Google-signup');
     googleSignUp.addEventListener('click', () => {
         // Redirect the user to the Google OAuth2 authorization page
-        window.location.href = `${baseURL}/signUp/auth/google`;
+        window.location.href = `${baseURL}/auth/signUp/google`;
     });
 
     const userSignIn = document.querySelector('#signIn')

@@ -1,14 +1,36 @@
-const baseURL = "http://localhost:3000"
+// const baseURL = "http://localhost:3000"
+const baseURL = "https://cipherschools-383611.as.r.appspot.com"
 const aboutMe = document.querySelector('#submitAboutMe')
 const onTheWeb = document.querySelector('#onTheWeb')
 const personalInfo = document.querySelector('#personalInfo')
 const passwordChange = document.querySelector('#passwordChange')
 const followersPage = document.querySelector('.followers')
-const submitPersonalInfo = document.querySelector('#personalInfo')
+const updateInterests = document.querySelector('.saveInterests')
 
-function refreshPg(){
+
+function refreshPg() {
   location.reload()
 }
+function deleteCookie(name) {
+  if (confirm("Are you sure you want to log out ?")) {
+    $.ajax({
+      url: `${baseURL}/logout`,
+      method: 'GET',
+      data: JSON.stringify(),
+      contentType: 'application/json',
+      success: function (response) {
+        if (response.status === "success")
+          location.reload()
+      },
+      error: function (error) {
+        alert("Sorry some error occured please try again later")
+      }
+    })
+
+
+  }
+}
+
 
 aboutMe.addEventListener('submit', (event) => {
   event.preventDefault()
@@ -58,11 +80,11 @@ onTheWeb.addEventListener('submit', (event) => {
 })
 personalInfo.addEventListener('submit', (event) => {
   event.preventDefault()
-
+  const button = document.querySelector('.editInfo')
   var formData = new FormData(personalInfo);
   const formValues = Object.fromEntries(formData.entries());
   console.log(formValues)
-
+  button.innerHTML = "<div class='loader'></div>"
 
   $.ajax({
     url: `${baseURL}/personalInfo`,
@@ -70,7 +92,13 @@ personalInfo.addEventListener('submit', (event) => {
     data: JSON.stringify(formValues),
     contentType: 'application/json',
     success: function (response) {
-      console.log(response.status)
+      if (response.status === "success") {
+        button.innerHTML = "Edit"
+        alert(response.message)
+      } else {
+
+        alert(response.message)
+      }
     },
     error: function (error) {
       alert("Sorry some error occured please try again later")
@@ -173,7 +201,6 @@ followersPage.addEventListener('click', (event) => {
     contentType: 'application/json',
     success: function (response) {
       if (response.status === "success") {
-        console.log(response)
         var html = ""
         if (response.followers.length !== 0) {
           response.followers.forEach((follower) => {
@@ -188,15 +215,15 @@ followersPage.addEventListener('click', (event) => {
                         </div>
                     </div>`
           })
-        }else{
-          html+=`
+        } else {
+          html += `
           <div class="container text-center m-5">
             <h1 class="text-secondary">You are not following anyone</h1>
           </div>
           `
         }
         document.querySelector('.displayFollower').innerHTML = html
-        if(response.suggestions !== undefined){
+        if (response.suggestions !== undefined) {
           html = ""
           response.suggestions.forEach((suggestion) => {
             html += `<div class="card m-2 " style="width: 14rem;">
@@ -204,7 +231,7 @@ followersPage.addEventListener('click', (event) => {
                         <div class="card-body text-center">
                             <div class="col">
                                 <h5 class="card-title">${suggestion.username}</h5>
-                                <p class="card-text">${suggestion.profession}</p>
+                                <p class="card-text">${suggestion.email}</p>
                                 <button href="#" class="btn">Follow</button>
                             </div>
                         </div>
@@ -223,35 +250,78 @@ followersPage.addEventListener('click', (event) => {
   })
 })
 
-submitPersonalInfo.addEventListener('submit', (event)=>{
+const interestsButtons = document.querySelectorAll('.category');
+const toggleButtons = document.querySelectorAll('.toggleBtn');
+var previousInterests = document.querySelector('#intrests').value
+var selectedCategories = [];
+if (previousInterests !== "") {
+  previousInterests = previousInterests.split(',')
+  selectedCategories = previousInterests;
+}
+
+interestsButtons.forEach((button) => {
+  interestField = button.innerText.replace(/\s+/g, ' ').trim();
+  if (previousInterests.includes(interestField)) {
+    button.classList.add("selected");
+  }
+})
+
+interestsButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // toggle the 'selected' class on the button element
+    button.classList.toggle('selected');
+
+
+
+    // if the button is selected, add its inner value to the array
+    interestField = button.innerText.replace(/\s+/g, ' ').trim();
+    // if(previousInterests.includes(interestField)){
+    //   button.classList.add("selected");
+    // }
+    if (button.classList.contains('selected') && !selectedCategories.includes(interestField)) {
+      selectedCategories.push(interestField);
+    }
+    // if the button is not selected, remove its inner value from the array
+    else {
+
+      const index = selectedCategories.indexOf(interestField);
+      if (index !== -1) {
+        selectedCategories.splice(index, 1);
+      }
+    }
+    selectedCategories = selectedCategories.map(str => str.trim());
+    console.log(selectedCategories);
+  });
+});
+
+
+// loop through each button and add an event listener
+toggleButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // toggle the "active" class on the button
+    button.classList.toggle('active');
+  });
+});
+
+
+updateInterests.addEventListener('click', async (event) => {
   event.preventDefault()
-
-  var formData = new FormData(submitPersonalInfo);
-  const formValues = Object.fromEntries(formData.entries());
-  console.log(formValues)
-
+  const button = document.querySelector('.saveInterests')
+  button.innerHTML = '<div class="loader"></div>'
 
   $.ajax({
-    url: `${baseURL}/personalInfo`,
+    url: `${baseURL}/updateInterests`,
     method: 'POST',
-    data: JSON.stringify(formValues),
+    data: JSON.stringify(selectedCategories),
     contentType: 'application/json',
     success: function (response) {
       if (response.status === "success") {
-        const form = document.getElementById('passwordChange');
-        const inputFields = form.querySelectorAll('input');
-        inputFields.forEach((field) => {
-          field.value = '';
-        });
+        button.innerHTML = 'Save'
         alert(response.message)
+        location.reload()
       } else {
-        const form = document.getElementById('passwordChange');
-        const inputFields = form.querySelectorAll('input');
-        inputFields.forEach((field) => {
-          field.value = '';
-        });
-
         alert(response.message)
+        location.reload()
       }
     },
     error: function (error) {

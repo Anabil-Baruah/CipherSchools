@@ -31,8 +31,8 @@
                                 <i class="fa-brands fa-discord"></i><br> Discord
                             </div>
                         </li>
-                        <li class="my-4" >
-                            <div class="item-header logout text-center">
+                        <li class="my-4">
+                            <div class="item-header logout text-center" onclick="deleteCookie('jwt')">
                                 <i class="fa-solid fa-right-from-bracket"></i><br> Logout
                             </div>
                         </li>
@@ -102,25 +102,15 @@
                         </ul>
                     </div>
                     <div class="followersContainer container" style="display: none;">
-                        <h3>Users following you</h3>
+                        <h3>Users you follow</h3>
                         <div class="row displayFollower">
-                            <!-- <div class="card m-2 " style="width: 13.5rem;">
-                                <img src="/img/logo.jpg" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <div class="col">
-                                        <h5 class="card-title">Aman khosla</h5>
-                                        <p class="card-text">College student</p>
-                                        <button href="#" class="btn">Follow Back</button>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
-                        
+
                         <hr>
                         <div class="suggestionsContainer container">
                             <h3>Suggestions</h3>
                             <div class="row displaySuggestion">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -148,7 +138,9 @@
                                             </div>
                                         </li>
                                         <li style="margin-left:auto;">
-                                            <h5>+2k Followers</h5>
+                                            <h5>
+                                                <%= userInfo.followers.length%> Followers
+                                            </h5>
                                         </li>
                                     </ul>
                             </div>
@@ -165,29 +157,8 @@
                                 <hr>
                                 <div class="cipherMap">
                                     <h4>CIPHER MAP</h4>
-                                    <div class="container cipherSpace">
-                                        <div class="row">
-                                            <div class="col-md-1">Sun</div>
-                                            <div class="col-md-1">Mon</div>
-                                            <div class="col-md-1">Tue</div>
-                                            <div class="col-md-1">Wed</div>
-                                            <div class="col-md-1">Thu</div>
-                                            <div class="col-md-1">Fri</div>
-                                            <div class="col-md-1">Sat</div>
-                                        </div>
-                                        <div class="row cipherData">
-                                            <% for(var i=0; i<=6; i++){%>
-                                                <div class="col-md-1">
-                                                    <% for(var j=0; j<=6; j++){%>
-                                                        <div class="col-md-1">
-                                                            <div class="row">
-                                                                1
-                                                            </div>
-                                                        </div>
-                                                        <%}%>
-                                                </div>
-                                                <%}%>
-                                        </div>
+                                    <div class="container">
+                                        <img src="/img/Screenshot 2023-04-13 231957.png" alt="" style="width:100%;">
                                     </div>
                                 </div>
 
@@ -196,7 +167,7 @@
                                     <form id="onTheWeb">
                                         <div class="aboutMeHeader my-3">
                                             <h4>ON THE WEB</h4>
-                                            <button class="btn" type="submit">Edit</button>
+                                            <button class="btn" type="submit">Save</button>
                                         </div>
                                         <div class="container">
                                             <div class="row">
@@ -283,7 +254,7 @@
                                     <form id="personalInfo">
                                         <div class="personalInfoHeader my-3">
                                             <h4>PERSONAL INFORMATION</h4>
-                                            <button class="btn">Edit</button>
+                                            <button class="btn editInfo">Save</button>
                                         </div>
                                         <div class="container">
                                             <div class="row">
@@ -297,8 +268,11 @@
 
                                                             <select class="form-select" name="Education"
                                                                 aria-label="Default select example">
+                                                                <option selected>
+                                                                    <%= userInfo.personalInfo.Education%>
+                                                                </option>
                                                                 <option value="Primary">Primary</option>
-                                                                <option selected value="Secondary">Secondary</option>
+                                                                <option value="Secondary">Secondary</option>
                                                                 <option value="Higher secondary">Higher secondary
                                                                 </option>
                                                                 <option value="Graduation">Graduation</option>
@@ -317,8 +291,10 @@
                                                         <div class="personalInfo d-flex  me-2 p-1">
                                                             <select class="form-select" name="WYD"
                                                                 aria-label="Default select example">
-
-                                                                <option selected value="Schooling">Schooling</option>
+                                                                <option selected>
+                                                                    <%= userInfo.personalInfo.currentJob%>
+                                                                </option>
+                                                                <option value="Schooling">Schooling</option>
                                                                 <option value="College student">College student</option>
                                                                 <option value="Teaching">Teaching</option>
                                                                 <option value="Job">Job</option>
@@ -370,15 +346,11 @@
                                             data-bs-target="#interestsEditModal">Edit</button>
                                     </div>
                                     <div class="container interests">
-                                        <target class="btn p-1 m-2">App developement</target>
-                                        <target class="btn p-1 m-2">Web developement</target>
-                                        <target class="btn p-1 m-2">Game devoloement</target>
-                                        <target class="btn p-1 m-2">Data Science</target>
-                                        <target class="btn p-1 m-2">Button 2</target>
-                                        <target class="btn p-1 m-2">Button 3</target>
-                                        <target class="btn p-1 m-2">Button 1</target>
-                                        <target class="btn p-1 m-2">Button 2</target>
-                                        <target class="btn p-1 m-2">Button 3</target>
+                                        <% userInfo.interests.forEach(element=> { %>
+                                            <target class="btn p-1 m-2">
+                                                <%= element%>
+                                            </target>
+                                            <% }); %>
                                     </div>
                                 </div>
                             </div>
@@ -400,7 +372,7 @@
                 </div>
             </div>
 
-
+            <input type="hidden" id="intrests" value="<%=userInfo.interests %>">
 
     </body>
     <%- include('includes/footer.ejs')%>

@@ -424,3 +424,15 @@ color: #f3912e;
   }
 }
 /* //loader */
+
+
+.toggleBtn {
+  background-color: #fff5eb;
+  color: #ffffff;
+  color: #000;
+}
+
+.toggleBtn .active {
+  background-color: #f3912e;
+  color: #fff;
+}

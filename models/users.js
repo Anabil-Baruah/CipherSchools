@@ -4,20 +4,20 @@ const jwt = require('jsonwebtoken');
 require('dotenv')
 
 const userSchema = mongoose.Schema({
-    username: {type:String, default:"", required:true},
-    lastName: {type:String, default:"", required:true},
+    username: {type:String, default:""},
+    lastName: {type:String, default:""},
     createdAt: {
         type: String,
         default: Date.now
     },
-    email: {type:String, default:"", required:true},
+    email: {type:String, default:""},
     profilePic:
         {type: String, 
         default : "https://res.cloudinary.com/dudvqptv0/image/upload/v1681324609/anonymous-avatar-icon-25_elypk2.png"},
     profilePicPublicId: String,
     password: String,
     aboutMe: {type:String, default:""},
-    phone: {type:String, default:"", required:true},
+    phone: {type:String, default:""},
     onTheWeb: {
         github: {type:String, default:""},
         linkedin: {type:String, default:""},
@@ -30,7 +30,10 @@ const userSchema = mongoose.Schema({
         Education: {type:String, default:"Graduation"},
         currentJob: {type:String, default:"College student"}
     },
-    interests: [],
+    interests: {
+        type: [String],
+        required: true
+      },
     accessToken: {
         type: String
     },

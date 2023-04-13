@@ -2,7 +2,7 @@ const router = require('express').Router()
 const user = require('../models/users')
 const bcrypt = require('bcrypt')
 const { auth, baseURL } = require('../auth')
-const cloudinary = require('../public/js/fileUploadAPI')
+const cloudinary = require('../public/JS/fileUploadAPI')
 
 router.route('/')
     .get(async (req, res) => {
@@ -26,13 +26,14 @@ router.route('/')
                         aboutMe: 1,
                         phone: 1,
                         lastName: 1,
-                        personalInfo: 1
+                        personalInfo: 1,
+                        interests: 1,
+                        followers: 1
                     }
                 }
             ]);
             userInfo = userInfo[0]
         }
-
         res.render('login', { cookie: jwtCookie, userInfo, baseURL })
     })
 
@@ -60,7 +61,7 @@ router.route('/aboutMe')
 router.route('/onTheWeb')
     .post(auth, async (req, res) => {
         let requsetBody = req.body
-        console.log(req.body)
+      
         for (let key in requsetBody) {
             requsetBody[key] === "" ? delete requsetBody[key] : null
         }
@@ -89,10 +90,19 @@ router.route('/onTheWeb')
                 message: "Some error occured please try later"
             })
         }
-        console.log(requsetBody)
+       
     })
 router.route('/personalInfo')
-    .post(async (req, res) => {
+    .post(auth, async (req, res) => {
+
+        const userFound = await user.findOne({ accessToken: req.accessToken })
+        if (userFound === null) {
+            return res.json({
+                status: "error",
+                message: "User has been logged out"
+            })
+        }
+
         const userUpdate = await user.updateOne({ accessToken: req.accessToken }, {
             $set: {
                 personalInfo: {
@@ -120,7 +130,7 @@ router.route('/passwordUpdate')
         const prevPassword = req.body.prevPasssword
         const retypePassword = req.body.retypePassword
         const accessToken = req.accessToken
-        console.log(req.body)
+       
 
         if (newPassword.toString() !== retypePassword.toString()) {
             return res.json({
@@ -130,7 +140,7 @@ router.route('/passwordUpdate')
         }
 
         const userFound = await user.findOne({ accessToken })
-        console.log(userFound)
+       
 
         if (userFound == null) {
             return res.json({
@@ -147,7 +157,7 @@ router.route('/passwordUpdate')
                         password: hashed
                     }
                 })
-                console.log(result)
+              
                 if (result !== null) {
                     res.json({
                         status: "success",
@@ -171,7 +181,7 @@ router.route('/passwordUpdate')
 router.route('/profileInfoChange')
     .post(auth, async (req, res) => {
         const userFound = await user.findOne({ accessToken: req.accessToken })
-        console.log(userFound)
+      
         const fileType = req.body.fileType
         if (fileType !== undefined) {
 
@@ -211,7 +221,7 @@ router.route('/profileInfoChange')
                 phone: req.body.number
             }
         })
-        console.log(userUpdate)
+       
         if (userUpdate)
             res.json({ status: "success", message: "Profile updated succesfully" })
         else
@@ -227,7 +237,8 @@ router.route('/followers')
                 message: "User has been logged out"
             })
         }
-        const suggestions = await user.aggregate([{ $project: { _id: 1, profilePic: 1, username: 1, email: 1, personalInfo: 1 } }])
+        const suggestions = await user.aggregate([{ $project: { _id: 1, profilePic: 1, username: 1, email: 1, followers: 1 } }])
+      
         res.json({
             status: "success",
             followers: userFound.followers,
@@ -235,13 +246,42 @@ router.route('/followers')
         })
     })
 
-router.route('/personalInfo')
-    .get(auth, async (req, res) => {
+router.route('/updateInterests')
+    .post(auth, async (req, res) => {
+        var intrestArr = req.body
 
+        const userFound = await user.findOne({ accessToken: req.accessToken })
+        if (userFound === null) {
+            return res.json({
+                status: "error",
+                message: "User has been logged out"
+            })
+        }
+
+        const updateInterests = await user.updateOne({ accessToken: req.accessToken }, {
+            $set: {
+                interests: intrestArr
+            }
+        })
+        if (updateInterests) {
+            res.json({
+                status: "success",
+                message: "Field updated succcesfully"
+            })
+        } else {
+            res.json({
+                status: "error",
+                message: "Some error occured please try later"
+            })
+        }
     })
-router.route('/editInterests')
-    .post(async (req, res) => {
 
+router.route('/logout')
+    .get(auth, async (req, res) => {
+        res.clearCookie('jwt');
+        res.json({
+            status: "success"
+        })
     })
 
 module.exports = router
