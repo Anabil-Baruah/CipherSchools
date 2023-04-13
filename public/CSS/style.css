@@ -52,6 +52,10 @@ textarea {
 .header-container ul li img {
   width: 2rem;
   height: 2rem;
+  border-radius: 50%;
+}
+.header-container ul li img:hover{
+  cursor: pointer;
 }
 
 .header-container ul li form input {
@@ -113,6 +117,12 @@ textarea {
   background-color: aliceblue;
 }
 
+.followers:hover,
+.home:hover,
+.logout:hover{
+cursor: pointer;
+color: #f3912e;
+}
 
 .no-focus-outline {
   background-color: transparent;
@@ -148,7 +158,9 @@ textarea {
 .hero-container ul li p {
   font-weight: lighter;
 }
-
+.hero-container ul li img{
+  border-radius: 50%;
+}
 .editBtn {
   z-index: 2;
   margin: 80px 30px 0px -52px;
@@ -159,6 +171,7 @@ textarea {
 .profileImg img {
   width: 10rem;
   height: 10rem;
+  border-radius: 50%;
 }
 
 .profileUpdateContainer {
@@ -177,6 +190,14 @@ textarea {
   font-weight: lighter;
 }
 
+.uploadImg i{
+  margin: 140px 0px 3px -100px;
+  font-size: 1.7rem;
+  background-color: black;
+  border-radius: 50%;
+  padding: 5px;
+  
+}
 /* //hero-container */
 
 /* main-container */
@@ -186,7 +207,7 @@ textarea {
 
 /* aboutMe */
 .main-container .aboutMe textarea {
-  width: 80vw;
+  width: 100%;
   height: 20vh;
   font-weight: lighter;
   border-radius: 1rem;
@@ -355,9 +376,51 @@ textarea {
   height: 2.5rem;
 }
 /* // authentication */
+
+
+
+/* followersContainer */
+
+.followersContainer img{
+  height: 13rem;
+  width: 13rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 50%;
+}
+.followersContainer button{
+  background-color: #f3912e;
+  color: white;
+}
+
+/* // followersContainer */
+
+
 @media (min-width: 992px) {
   .search {
     display: flex;
   }
 
 }
+
+
+/* loader */
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid#faaf64;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+/* //loader */

@@ -1,15 +1,43 @@
 const router = require('express').Router()
 const user = require('../models/users')
 const bcrypt = require('bcrypt')
+const { auth, baseURL } = require('../auth')
+const cloudinary = require('../public/js/fileUploadAPI')
 
 router.route('/')
     .get(async (req, res) => {
         const jwtCookie = req.cookies.jwt;
-        res.render('login', {cookie:jwtCookie})
+        var userInfo = {}
+        if (jwtCookie !== undefined) {
+            userInfo = await user.aggregate([
+                {
+                    $match: {
+                        accessToken: jwtCookie
+                    }
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        username: 1,
+                        profilePic: 1,
+                        interests: 1,
+                        onTheWeb: 1,
+                        email: 1,
+                        aboutMe: 1,
+                        phone: 1,
+                        lastName: 1,
+                        personalInfo: 1
+                    }
+                }
+            ]);
+            userInfo = userInfo[0]
+        }
+
+        res.render('login', { cookie: jwtCookie, userInfo, baseURL })
     })
 
 router.route('/aboutMe')
-    .post(async (req, res) => {
+    .post(auth, async (req, res) => {
         const userUpdate = await user.updateOne({ accessToken: req.accessToken }, {
             $set: {
                 aboutMe: req.body.aboutMe
@@ -19,7 +47,7 @@ router.route('/aboutMe')
         if (userUpdate) {
             res.json({
                 status: "success",
-                message: "User updated succcesfully"
+                message: "Field updated succcesfully"
             })
         } else {
             res.json({
@@ -30,8 +58,9 @@ router.route('/aboutMe')
     })
 
 router.route('/onTheWeb')
-    .post(async (req, res) => {
+    .post(auth, async (req, res) => {
         let requsetBody = req.body
+        console.log(req.body)
         for (let key in requsetBody) {
             requsetBody[key] === "" ? delete requsetBody[key] : null
         }
@@ -39,7 +68,7 @@ router.route('/onTheWeb')
         const userUpdate = await user.updateOne({ accessToken: req.accessToken }, {
             $set: {
                 onTheWeb: {
-                    github: requsetBody.github,
+                    github: requsetBody.gitHub,
                     linkedin: requsetBody.linkedin,
                     instagram: requsetBody.instagram,
                     facebook: requsetBody.facebook,
@@ -86,20 +115,22 @@ router.route('/personalInfo')
         }
     })
 router.route('/passwordUpdate')
-    .post(async (req, res) => {
+    .post(auth, async (req, res) => {
         const newPassword = req.body.newPassword
         const prevPassword = req.body.prevPasssword
         const retypePassword = req.body.retypePassword
         const accessToken = req.accessToken
+        console.log(req.body)
 
-        if(prevPassword !== retypePassword){
+        if (newPassword.toString() !== retypePassword.toString()) {
             return res.json({
-                status:"error",
-                message:"Passwords dosent matches"
+                status: "error",
+                message: "Passwords dosent matches"
             })
         }
 
         const userFound = await user.findOne({ accessToken })
+        console.log(userFound)
 
         if (userFound == null) {
             return res.json({
@@ -110,9 +141,10 @@ router.route('/passwordUpdate')
             const passMatch = await bcrypt.compare(prevPassword, userFound.password)
 
             if (passMatch) {
+                const hashed = await bcrypt.hash(newPassword, 10);
                 const result = await user.findOneAndUpdate({ accessToken }, {
                     $set: {
-                        password: newPassword
+                        password: hashed
                     }
                 })
                 console.log(result)
@@ -135,8 +167,80 @@ router.route('/passwordUpdate')
             }
         }
     })
+
+router.route('/profileInfoChange')
+    .post(auth, async (req, res) => {
+        const userFound = await user.findOne({ accessToken: req.accessToken })
+        console.log(userFound)
+        const fileType = req.body.fileType
+        if (fileType !== undefined) {
+
+            cloudinary.uploader.upload(`data:${req.body.fileType};base64,${req.body.base64String}`, {
+                resource_type: 'raw',
+                folder: 'images/cipherSchool',
+                width: 1000,
+                height: 600
+                // crop: "scale"
+            }).then(async (result) => {
+                const userUpdate = await user.updateOne({ accessToken: req.accessToken }, {
+                    $set: {
+                        profilePic: result.url,
+                        username: req.body.firstName,
+                        email: req.body.email,
+                        lastName: req.body.lastName,
+                        phone: req.body.number,
+                        profilePicPublicId: result.public_id
+                    }
+                })
+
+                if (userUpdate)
+                    res.json({ status: "success", url: result.url, message: "Profile updated succesfully" })
+                else
+                    res.json({ status: "error", url: "", message: "Sorry some error occured" })
+
+            }).catch(() => {
+                console.log("error occured")
+            })
+            return
+        }
+        var userUpdate = await user.updateOne({ accessToken: req.accessToken }, {
+            $set: {
+                username: req.body.firstName,
+                email: req.body.email,
+                lastName: req.body.lastName,
+                phone: req.body.number
+            }
+        })
+        console.log(userUpdate)
+        if (userUpdate)
+            res.json({ status: "success", message: "Profile updated succesfully" })
+        else
+            res.json({ status: "error", message: "Sorry some error occured" })
+    })
+
+router.route('/followers')
+    .get(auth, async (req, res) => {
+        const userFound = await user.findOne({ accessToken: req.accessToken })
+        if (userFound === null) {
+            return res.json({
+                status: "error",
+                message: "User has been logged out"
+            })
+        }
+        const suggestions = await user.aggregate([{ $project: { _id: 1, profilePic: 1, username: 1, email: 1, personalInfo: 1 } }])
+        res.json({
+            status: "success",
+            followers: userFound.followers,
+            suggestions
+        })
+    })
+
+router.route('/personalInfo')
+    .get(auth, async (req, res) => {
+
+    })
 router.route('/editInterests')
-    .post(async(req,res)=>{
+    .post(async (req, res) => {
 
     })
 

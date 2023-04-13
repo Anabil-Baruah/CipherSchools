@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="CSS/style.css">
+<!-- <link rel="stylesheet" href="CSS/style.css"> -->
 <!--Edit personal info Modal -->
 <div class="modal fade" id="editPersonalInfo" tabindex="-1" aria-labelledby="editPersonalInfoLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -12,41 +12,49 @@
         <div class="container-lg">
           <div class="row">
             <div class="col-lg-4">
+              <form id="profileInfoChange">
               <div class="profileImg mt-lg-5 d-flex justify-content-center">
-                <img src="img/logo.jpg" alt="">
+                <img src="<%= userInfo.profilePic%>" alt="">
+                <label class="uploadImg text-light bg-dark">
+                  <i class="fa-solid fa-pencil"></i>
+                  <input type="file" id="file-input" name="profilePic" style="display: none;">
+                </label>
               </div>
             </div>
             <div class="col-lg-8">
               <div class="profileInfo">
                 <div class="container profileUpdateContainer">
-                  <form id="profileInfoChange">
-                    <label for="firstName">First name</label>
-                    <input type="text" class="form-control" name="firstName" id="firstName">
-                    <label for="lastName">Last name</label>
-                    <input type="text" class="form-control" name="lastName" id="lastName">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email">
-                    <label for="number">Mobile number</label>
-                    <input type="number" class="form-control" name="number" id="number">
-                  </form>
+
+                  <label for="firstName">First name</label>
+                  <input type="text" class="form-control" name="firstName" value="<%= userInfo.username%>" required>
+                  <label for="lastName">Last name</label>
+                  <input type="text" class="form-control" name="lastName" value="<%= userInfo.lastName%>" required>
+                  <label for="email">Email address</label>
+                  <input type="email" class="form-control" name="email" value="<%= userInfo.email%>" required>
+                  <label for="number">Mobile number</label>
+                  <input type="text" class="form-control" name="number" value="<%= userInfo.phone%>" required>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-dark text-light savePersonalInfo"
+        <button type="button" class="btn btn-secondary btn-dark text-light cancelPersonalInfo"
           data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary cancelPersonalInfo" style="background-color: #f3912e;"
-          data-bs-dismiss="modal">Save</button>
+        <button type="submit" class="btn btn-primary savePersonalInfo" style="background-color: #ff8000;"
+          >Submit</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+ 
+
+</script>
 
 <!--Edit password Modal -->
 <div class="modal fade" id="passwordEditModal" tabindex="-1" aria-labelledby="passwordEditModalLabel"
@@ -62,14 +70,15 @@
             <input type="text" class="form-control" name="newPassword" id="newPassword">
             <label for="confirmPassword ">Confirm Password</label>
             <input type="text" class="form-control" name="retypePassword" id="confirmPassword">
-          </form>
+
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark text-light savePersonalInfo" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn cancelPersonalInfo text-light" style="background-color: #f3912e;"
+        <button type="submit" class="btn cancelPersonalInfo text-light" style="background-color: #fff5eb;"
           data-bs-dismiss="modal">Save</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -88,24 +97,24 @@
         <div class="container interestsOptions">
           <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Web</span>&nbsp;<span>Developement</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>App</span>&nbsp;<span>Developement</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Game</span>&nbsp;<span>Developement</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Data</span>&nbsp;<span>Structures</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Web</span>&nbsp;<span>Developement</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>App</span>&nbsp;<span>Developement</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Game</span>&nbsp;<span>Developement</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Data</span>&nbsp;<span>Structures</span></button>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 m-lg-auto">
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Programming</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Data</span>&nbsp;<span>Science</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Machine</span>&nbsp;<span>Learning</span></button>
-              <button type="button" class="btn text-light p-2"
-                style="background-color: #f3912e;"><span>Others</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Programming</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Data</span>&nbsp;<span>Science</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Machine</span>&nbsp;<span>Learning</span></button>
+              <button type="button" class="btn text-dark p-2"
+                style="background-color: #fff5eb;"><span>Others</span></button>
             </div>
           </div>
         </div>
@@ -113,10 +122,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-dark text-light savePersonalInfo"
           data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary cancelPersonalInfo" style="background-color: #f3912e;"
+        <button type="button" class="btn btn-primary cancelPersonalInfo" style="background-color: #fff5eb;"
           data-bs-dismiss="modal">Save</button>
       </div>
     </div>
   </div>
 </div>
-
