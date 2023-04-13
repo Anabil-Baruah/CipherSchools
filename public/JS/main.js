@@ -4,7 +4,6 @@ const aboutMe = document.querySelector('#submitAboutMe')
 const onTheWeb = document.querySelector('#onTheWeb')
 const personalInfo = document.querySelector('#personalInfo')
 const passwordChange = document.querySelector('#passwordChange')
-const followersPage = document.querySelector('.followers')
 const updateInterests = document.querySelector('.saveInterests')
 
 
@@ -190,7 +189,9 @@ profileInfoChange.addEventListener('submit', async (event) => {
   })
 })
 
-followersPage.addEventListener('click', (event) => {
+
+
+function dispalyFolllowers(event){
   event.preventDefault()
   document.querySelector('.auth').style.display = "none";
   document.querySelector('.followersContainer').style.display = "";
@@ -248,7 +249,9 @@ followersPage.addEventListener('click', (event) => {
       alert("Sorry some error occured please try again later")
     }
   })
-})
+}
+
+
 
 const interestsButtons = document.querySelectorAll('.category');
 const toggleButtons = document.querySelectorAll('.toggleBtn');

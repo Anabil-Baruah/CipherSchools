@@ -21,9 +21,11 @@ ul {
 :disabled {
   background-color: black;
 }
-a{
+
+a {
   color: #f3912e;
 }
+
 textarea {
   border: none;
 }
@@ -54,7 +56,8 @@ textarea {
   height: 2rem;
   border-radius: 50%;
 }
-.header-container ul li img:hover{
+
+.header-container ul li img:hover {
   cursor: pointer;
 }
 
@@ -119,9 +122,9 @@ textarea {
 
 .followers:hover,
 .home:hover,
-.logout:hover{
-cursor: pointer;
-color: #f3912e;
+.logout:hover {
+  cursor: pointer;
+  color: #f3912e;
 }
 
 .no-focus-outline {
@@ -158,9 +161,11 @@ color: #f3912e;
 .hero-container ul li p {
   font-weight: lighter;
 }
-.hero-container ul li img{
+
+.hero-container ul li img {
   border-radius: 50%;
 }
+
 .editBtn {
   z-index: 2;
   margin: 80px 30px 0px -52px;
@@ -190,14 +195,15 @@ color: #f3912e;
   font-weight: lighter;
 }
 
-.uploadImg i{
+.uploadImg i {
   margin: 140px 0px 3px -100px;
   font-size: 1.7rem;
   background-color: black;
   border-radius: 50%;
   padding: 5px;
-  
+
 }
+
 /* //hero-container */
 
 /* main-container */
@@ -297,7 +303,8 @@ color: #f3912e;
   padding: 2rem;
 }
 
-.passChangeContainer input, .userInfoContainer input {
+.passChangeContainer input,
+.userInfoContainer input {
   border: none;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -325,70 +332,81 @@ color: #f3912e;
 .interestsOptions .btn span {
   white-space: nowrap;
 }
-.interests target{
-  background-color: rgba(243,145,46,.1);
+
+.interests target {
+  background-color: rgba(243, 145, 46, .1);
   color: #f3912e;
   font-size: 1.5rem;
   padding: 1.5rem;
   border-radius: 10px;
 }
-.interests .btn:hover{
+
+.interests .btn:hover {
   cursor: default;
 }
+
 /* // Interests */
 
 /* //main-container */
 
 /* authentication */
 
-.authImg img{
+.authImg img {
   margin-top: 5rem;
   width: 25rem;
   height: 25rem;
 }
-.authImg .authButton button{
-  background-color: rgba(212,132,50,.2);
+
+.authImg .authButton button {
+  background-color: rgba(212, 132, 50, .2);
   font-size: large;
   margin-top: 10px;
   color: black;
   border-radius: 0.5rem;
 }
-.authImg .authButton button:hover{
+
+.authImg .authButton button:hover {
   background-color: #f3912e;
 }
-.authModalCard{
+
+.authModalCard {
   border-radius: 3rem;
-  padding:1rem;
+  padding: 1rem;
 }
-.authHeader img{
+
+.authHeader img {
   width: 3rem;
   height: 3rem;
 }
-.userInfoContainer button{
+
+.userInfoContainer button {
   background-color: #f3912e;
   color: white;
   margin-top: 1rem;
   width: 100%;
   border-radius: 3rem;
 }
-.googleAuth .btn img{
+
+.googleAuth .btn img {
   width: 2.5rem;
   height: 2.5rem;
 }
+
 /* // authentication */
 
 
 
 /* followersContainer */
 
-.followersContainer img{
+.followersContainer img {
   height: 13rem;
   width: 13rem;
   padding: 1rem;
   border: none;
   border-radius: 50%;
 }
-.followersContainer button{
+
+.followersContainer button {
   background-color: #f3912e;
   color: white;
 }
@@ -416,13 +434,14 @@ color: #f3912e;
 
 @keyframes spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
+
 /* //loader */
 
 
@@ -436,3 +455,34 @@ color: #f3912e;
   background-color: #f3912e;
   color: #fff;
 }
+
+.footer-bar {
+  display: none;
+}
+
+/* navbarDisaplyOnSmdevices */
+@media(max-width: 761px) {
+  .footer-bar {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 30px 20px;
+    border-radius: 3rem;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    z-index: 9999;
+  }
+}
+@media(max-width: 620px){
+  .browseHeader{
+    font-size: small;
+    padding-top: 5px;
+  }
+  .notification{
+    display: none;
+  }
+}
+
+/* // navbarDisaplyOnSmdevices */
