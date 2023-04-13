@@ -21,6 +21,8 @@ Node.js
 
 Express
 
+Mongo DB
+
 Cloudinary
 
 HTML
